@@ -39,6 +39,11 @@ return [
             "title" => "Om denna webbplats.",
         ],
         [
+            "text" => "IP",
+            "url" => "ip",
+            "title" => "Validate an IP-address.",
+        ],
+        [
             "text" => "Styleväljare",
             "url" => "style",
             "title" => "Välj stylesheet.",

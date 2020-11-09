@@ -26,5 +26,4 @@ if (isset($class)) {
     <input type="submit" value="Submit">
 </form>
 
-<?= var_dump($_POST); ?>
 </article>

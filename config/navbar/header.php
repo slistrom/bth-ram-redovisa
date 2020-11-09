@@ -44,6 +44,11 @@ return [
             "title" => "Validate an IP-address.",
         ],
         [
+            "text" => "API",
+            "url" => "api/info",
+            "title" => "Me-sidans API.",
+        ],
+        [
             "text" => "Styleväljare",
             "url" => "style",
             "title" => "Välj stylesheet.",

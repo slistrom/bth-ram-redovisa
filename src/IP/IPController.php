@@ -1,10 +1,10 @@
 <?php
 
-namespace Anax\IP;
+namespace Lii\IP;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Anax\IP\IPValidator;
+use Lii\IP\IPValidator;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -39,11 +39,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return void
      */
-    public function initialize() : void
-    {
-        // Use to initialise member variables.
-        $this->db = "active";
-    }
+//     public function initialize() : void
+//     {
+//         // Use to initialise member variables.
+//         $this->db = "active";
+//     }
 
 
     /**
@@ -98,10 +98,8 @@ class IPController implements ContainerInjectableInterface
     }
 
     /**
-     * This is the index method action, it handles:
-     * ANY METHOD mountpoint
-     * ANY METHOD mountpoint/
-     * ANY METHOD mountpoint/validate
+     * This is the validate method action, it handles:
+     * POST METHOD mountpoint/validate
      *
      * @return object
      */
@@ -136,12 +134,12 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function dumpDiActionGet() : string
-    {
-        // Deal with the action and return a response.
-        $services = implode(", ", $this->di->getServices());
-        return __METHOD__ . "<p>\$di contains: $services";
-    }
+//     public function dumpDiActionGet() : string
+//     {
+//         // Deal with the action and return a response.
+//         $services = implode(", ", $this->di->getServices());
+//         return __METHOD__ . "<p>\$di contains: $services";
+//     }
 
 
 
@@ -152,11 +150,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function infoActionGet() : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
-    }
+//     public function infoActionGet() : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}";
+//     }
 
 
 
@@ -166,11 +164,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function createActionGet() : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
-    }
+//     public function createActionGet() : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}";
+//     }
 
 
 
@@ -180,11 +178,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function createActionPost() : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
-    }
+//     public function createActionPost() : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}";
+//     }
 
 
 
@@ -196,11 +194,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function argumentActionGet($value) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-    }
+//     public function argumentActionGet($value) : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
+//     }
 
 
 
@@ -215,11 +213,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function defaultArgumentActionGet($value = "default") : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-    }
+//     public function defaultArgumentActionGet($value = "default") : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
+//     }
 
 
 
@@ -236,11 +234,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function typedArgumentActionGet(string $str, int $int) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got string argument '$str' and int argument '$int'.";
-    }
+//     public function typedArgumentActionGet(string $str, int $int) : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}, got string argument '$str' and int argument '$int'.";
+//     }
 
 
 
@@ -256,11 +254,11 @@ class IPController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function variadicActionGet(...$value) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got '" . count($value) . "' arguments: " . implode(", ", $value);
-    }
+//     public function variadicActionGet(...$value) : string
+//     {
+//         // Deal with the action and return a response.
+//         return __METHOD__ . ", \$db is {$this->db}, got '" . count($value) . "' arguments: " . implode(", ", $value);
+//     }
 
 
 

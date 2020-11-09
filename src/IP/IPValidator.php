@@ -1,9 +1,9 @@
 <?php
 
-namespace Anax\IP;
+namespace Lii\IP;
 
 /**
- * Filter and format text content.
+ * Validate an IP-address in different ways.
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  * @SuppressWarnings(PHPMD.UnusedPrivateField)
@@ -11,26 +11,13 @@ namespace Anax\IP;
 */
 class IPValidator
 {
-    /**
-     * @var array $filters Supported filters with method names of
-     *                     their respective handler.
-     */
-//     private $filters = [
-//         "bbcode"    => "bbcode2html",
-//         "link"      => "makeClickable",
-//         "markdown"  => "markdown",
-//         "nl2br"     => "nl2br",
-//         "esc"       => "htmlentities",
-//         "strip"     => "striptags",
-//     ];
 
     /**
-     * Call each filter on the text and return the processed text.
+     * Validate an IPv4 IP-address.
      *
-     * @param string $text   The text to filter.
-     * @param array  $filter Array of filters to use.
+     * @param string $inputIP   The IP-address to validate.
      *
-     * @return string with the formatted text.
+     * @return boolean based on if IP-address is valid or not.
      */
     public function validateIPv4($inputIP)
     {
@@ -44,13 +31,13 @@ class IPValidator
     }
 
     /**
-     * Call each filter on the text and return the processed text.
+     * Validate an IPv6 IP-address.
      *
-     * @param string $text   The text to filter.
-     * @param array  $filter Array of filters to use.
+     * @param string $inputIP   The IP-address to validate.
      *
-     * @return string with the formatted text.
+     * @return boolean based on if IP-address is valid or not.
      */
+
     public function validateIPv6($inputIP)
     {
         $valid = false;
@@ -63,12 +50,11 @@ class IPValidator
     }
 
     /**
-     * Call each filter on the text and return the processed text.
+     * Check if an IP-address has a registered domain name in DNS.
      *
-     * @param string $text   The text to filter.
-     * @param array  $filter Array of filters to use.
+     * @param string $inputIP   The IP-address to check for a domain name.
      *
-     * @return string with the formatted text.
+     * @return boolean based on if IP-address has an domain name or not.
      */
     public function checkDomain($inputIP)
     {
@@ -86,126 +72,40 @@ class IPValidator
         return $result;
     }
 
-//     /**
-//      * Call each filter on the text and return the processed text.
-//      *
-//      * @param string $text   The text to filter.
-//      * @param array  $filter Array of filters to use.
-//      *
-//      * @return string with the formatted text.
-//      */
-//     public function parse($text, $filter)
-//     {
-//         foreach ($filter as $key) {
-//             $handler = $this->filters[$key];
-//             $text = $this->$handler($text);
-//         }
-//         return $text;
-//     }
-//
-//
-//
-//     /**
-//      * Helper, BBCode formatting converting to HTML.
-//      *
-//      * @param string $text The text to be converted.
-//      *
-//      * @return string the formatted text.
-//      */
-//     public function bbcode2html($text)
-//     {
-//         $search = [
-//             '/\[b\](.*?)\[\/b\]/is',
-//             '/\[i\](.*?)\[\/i\]/is',
-//             '/\[u\](.*?)\[\/u\]/is',
-//             '/\[img\](https?.*?)\[\/img\]/is',
-//             '/\[url\](https?.*?)\[\/url\]/is',
-//             '/\[url=(https?.*?)\](.*?)\[\/url\]/is'
-//         ];
-//
-//         $replace = [
-//             '<strong>$1</strong>',
-//             '<em>$1</em>',
-//             '<u>$1</u>',
-//             '<img src="$1" />',
-//             '<a href="$1">$1</a>',
-//             '<a href="$1">$2</a>'
-//         ];
-//
-//         return preg_replace($search, $replace, $text);
-//     }
-//
-//
-//
-//     /**
-//      * Make clickable links from URLs in text.
-//      *
-//      * @param string $text The text that should be formatted.
-//      *
-//      * @return string with formatted anchors.
-//      */
-//     public function makeClickable($text)
-//     {
-//         return preg_replace_callback(
-//             '#\b(?<![href|src]=[\'"])https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#',
-//             function ($matches) {
-//                 return "<a href=\'{$matches[0]}\'>{$matches[0]}</a>";
-//             },
-//             $text
-//         );
-//     }
-//
-//
-//
-//     /**
-//      * Format text according to Markdown syntax.
-//      *
-//      * @param string $text The text that should be formatted.
-//      *
-//      * @return string as the formatted html text.
-//      */
-//     public function markdown($text)
-//     {
-//         return MarkdownExtra::defaultTransform($text);
-//     }
-//
-//
-//
-//     /**
-//      * For convenience access to nl2br formatting of text.
-//      *
-//      * @param string $text The text that should be formatted.
-//      *
-//      * @return string the formatted text.
-//      */
-//     public function nl2br($text)
-//     {
-//         return nl2br($text);
-//     }
-//
-//     /**
-//      * For convenience access to htmlentities formatting of text.
-//      *
-//      * @param string $text The text that should be formatted.
-//      *
-//      * @return string the formatted text.
-//      */
-//     public function htmlentities($text)
-//     {
-//         return htmlentities($text);
-//     }
-//
-//     /**
-//      * For convenience access to strip_tags formatting of text.
-//      *
-//      * @param string $text The text that should be formatted.
-//      *
-//      * @return string the formatted text.
-//      */
-//     public function striptags($text)
-//     {
-//         return strip_tags($text, "<html><body><b><br><em><hr>"
-//         . "<i><li><ol><p><s><span><table><tr><td><u><ul><a><h1>"
-//         ."<h2><h3><h4><blockquote><strong><thead><tbody><img>");
-//     }
+    /**
+     * This is the validate method action, it handles:
+     * POST METHOD mountpoint/validate
+     *
+     * @return object
+     */
+    public function validateIPJSON($inputIP)
+    {
+        $validationResultIPv4 = $this->validateIPv4($inputIP);
+        $validationResultIPv6 = $this->validateIPv6($inputIP);
+        $domain = $this->checkDomain($inputIP);
+
+        if ($validationResultIPv4) {
+            $ipv4msg = "Valid IPv4 address.";
+        } else {
+            $ipv4msg = "Not valid IPv4 address.";
+        }
+
+        if ($validationResultIPv6) {
+            $ipv6msg = "Valid IPv6 address.";
+        } else {
+            $ipv6msg = "Not valid IPv6 address.";
+        }
+
+        if (!$domain) {
+            $domain = "No domain name found.";
+        }
+
+        $json = [
+            "ip" => "{$inputIP}",
+            "ipv4" => "{$ipv4msg}",
+            "ipv6" => "{$ipv6msg}",
+            "domain" => "{$domain}",
+        ];
+        return [$json];
+    }
 }

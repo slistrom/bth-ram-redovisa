@@ -42,7 +42,7 @@ class IPValidatorTest extends TestCase
     /**
      * Test the function checkDomain.
      */
-     public function testCheckDomain()
+    public function testCheckDomain()
     {
         $res = $this->validator->checkDomain("37.156.192.50");
         $this->assertEquals($res, "sunet.se");

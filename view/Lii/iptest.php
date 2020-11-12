@@ -21,7 +21,7 @@ if (isset($class)) {
 <p>Skriv in en IP-adress nedan för att validera den.</p>
 <form action="ip/validate" method="POST">
     <label for="ip">IP-adress</label>
-    <input type="text" id="ip" name="ip" placeholder="x.x.x.x">
+    <input type="text" id="ip" name="ip" value="<?= $userIP ?>">
 
     <input type="submit" value="Submit">
 </form>

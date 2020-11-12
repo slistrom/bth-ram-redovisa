@@ -38,10 +38,19 @@ if (isset($class)) {
         <p>No domainname found for <?= $ip ?></p>
     <?php endif; ?>
 
+    <?php if ($location != "Not valid IP-address.") : ?>
+        <p><b>Location</b></p>
+        <p>Country: <?= $location["country_name"] ?></p>
+        <p>City: <?= $location["city"] ?></p>
+        <p>Position: Latitude <?= $location["latitude"] ?>, Longitude <?= $location["longitude"] ?>
+        <a href="https://www.google.com/maps/search/?api=1&query=<?= $location['latitude'] ?>,<?= $location['longitude'] ?>">Link to map</a></p>
+    <?php endif; ?>
+
+
 <?php endif; ?>
-
-
 
 <p></p>
 <a href="../ip">Gör en ny validering</a>
+
+
 </article>

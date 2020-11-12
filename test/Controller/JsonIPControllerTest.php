@@ -1,6 +1,6 @@
 <?php
 
-namespace Lii\IP;
+namespace Lii\Controller;
 
 use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
@@ -101,5 +101,59 @@ class JsonIpControllerTest extends TestCase
         $json = $res[0];
         $exp = "12.12.12.12";
         $this->assertContains($exp, $json["ip"]);
+    }
+
+    /**
+     * Test the route "location" for POST.
+     */
+    public function testLocationActionPost()
+    {
+        // Setup request
+        $request = $this->di->get("request");
+        $request->setPost("ip", "12.12.12.12");
+
+        // Test the controller action
+        $res = $this->controller->locationActionPost();
+        $this->assertInternalType("array", $res);
+
+        $json = $res[0];
+        $exp = "12.12.12.12";
+        $this->assertContains($exp, $json["ip"]);
+    }
+
+    /**
+     * Test the route "location" for GET.
+     */
+    public function testLocationActionGet()
+    {
+        // Setup request
+        $request = $this->di->get("request");
+        $request->setGet("ip", "12.12.12.12");
+
+        // Test the controller action
+        $res = $this->controller->locationActionGet();
+        $this->assertInternalType("array", $res);
+
+        $json = $res[0];
+        $exp = "12.12.12.12";
+        $this->assertContains($exp, $json["ip"]);
+    }
+
+    /**
+     * Test the route "location" for GET with wrong input.
+     */
+    public function testLocationActionGetFail()
+    {
+        // Setup request
+        $request = $this->di->get("request");
+        $request->setGet("ip", "12");
+
+        // Test the controller action
+        $res = $this->controller->locationActionGet();
+        $this->assertInternalType("array", $res);
+
+        $json = $res[0];
+        $exp = "Not valid IP-address.";
+        $this->assertContains($exp, $json["error"]);
     }
 }

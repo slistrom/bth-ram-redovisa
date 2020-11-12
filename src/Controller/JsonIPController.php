@@ -1,10 +1,10 @@
 <?php
 
-namespace Lii\IP;
+namespace Lii\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Lii\IP\IPValidator;
+use Lii\Model\IPValidator;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -72,9 +72,15 @@ class JsonIPController implements ContainerInjectableInterface
      */
     public function infoAction() : object
     {
-        $page = $this->di->get("page");
+        $request = $this->di->get("request");
+        $userIP = $request->getServer("HTTP_X_FORWARDED_FOR", "x.x.x.x");
 
-        $page->add("Lii/api-info");
+        $page = $this->di->get("page");
+        $data = [
+            "userIP" => $userIP,
+        ];
+
+        $page->add("Lii/api-info", $data);
 
         return $page->render([
             "title" => __METHOD__,
@@ -95,39 +101,12 @@ class JsonIPController implements ContainerInjectableInterface
         $validator = new IPValidator();
         $json = $validator->validateIPJSON($inputIP);
 
-//         $validationResultIPv4 = $validator->validateIPv4($inputIP);
-//         $validationResultIPv6 = $validator->validateIPv6($inputIP);
-//         $domain = $validator->checkDomain($inputIP);
-//
-//         if ($validationResultIPv4) {
-//             $ipv4msg = "Valid IPv4 address.";
-//         } else {
-//             $ipv4msg = "Not valid IPv4 address.";
-//         }
-//
-//         if ($validationResultIPv6) {
-//             $ipv6msg = "Valid IPv6 address.";
-//         } else {
-//             $ipv6msg = "Not valid IPv6 address.";
-//         }
-//
-//         if (!$domain) {
-//             $domain = "No domain name found.";
-//         }
-//
-//         $json = [
-//             "ip" => "{$inputIP}",
-//             "ipv4" => "{$ipv4msg}",
-//             "ipv6" => "{$ipv6msg}",
-//             "domain" => "{$domain}"
-//         ];
-
         return $json;
     }
 
     /**
      * This is the validate method action, it handles:
-     * POST METHOD mountpoint/validate
+     * GET METHOD mountpoint/validate
      *
      * @return object
      */
@@ -141,37 +120,37 @@ class JsonIPController implements ContainerInjectableInterface
 
         return $json;
     }
-    /**
-     * This sample method dumps the content of $di.
-     * GET mountpoint/dump-app
-     *
-     * @return array
-     */
-//     public function dumpDiActionGet() : array
-//     {
-//         // Deal with the action and return a response.
-//         $services = implode(", ", $this->di->getServices());
-//         $json = [
-//             "message" => __METHOD__ . "<p>\$di contains: $services",
-//             "di" => $this->di->getServices(),
-//         ];
-//         return [$json];
-//     }
-
-
 
     /**
-     * Try to access a forbidden resource.
-     * ANY mountpoint/forbidden
+     * This is the validate method action, it handles:
+     * GET METHOD mountpoint/location
      *
-     * @return array
+     * @return object
      */
-//     public function forbiddenAction() : array
-//     {
-//         // Deal with the action and return a response.
-//         $json = [
-//             "message" => __METHOD__ . ", forbidden to access.",
-//         ];
-//         return [$json, 403];
-//     }
+    public function locationActionGet() : array
+    {
+        $request = $this->di->get("request");
+        $inputIP = $request->getGet("ip");
+
+        $validator = new IPValidator();
+        $json = $validator->locateIPJSON($inputIP);
+
+        return $json;
+    }
+    /**
+     * This is the validate method action, it handles:
+     * POST METHOD mountpoint/location
+     *
+     * @return object
+     */
+    public function locationActionPost() : array
+    {
+        $request = $this->di->get("request");
+        $inputIP = $request->getPost("ip");
+
+        $validator = new IPValidator();
+        $json = $validator->locateIPJSON($inputIP);
+
+        return $json;
+    }
 }

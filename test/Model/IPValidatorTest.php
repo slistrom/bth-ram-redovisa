@@ -1,6 +1,6 @@
 <?php
 
-namespace Lii\IP;
+namespace Lii\Model;
 
 use PHPUnit\Framework\TestCase;
 
@@ -64,5 +64,32 @@ class IPValidatorTest extends TestCase
     {
         $res = $this->validator->validateIPJSON("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
         $this->assertEquals($res[0]["ip"], "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+    }
+
+    /**
+     * Test the function locateIPJSON with IPv4-address.
+     */
+    public function testLocateIPJSONIPv4()
+    {
+        $res = $this->validator->locateIPJSON("12.12.12.12");
+        $this->assertEquals($res[0]["ip"], "12.12.12.12");
+    }
+
+    /**
+     * Test the function locateIPJSON with IPv6-address.
+     */
+    public function testLocateIPJSONIPv6()
+    {
+        $res = $this->validator->locateIPJSON("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+        $this->assertEquals($res[0]["ip"], "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+    }
+
+    /**
+     * Test the function locateIPJSON with not valid IP-address.
+     */
+    public function testLocateIPJSONIPFail()
+    {
+        $res = $this->validator->locateIPJSON("hej");
+        $this->assertEquals($res[0]["error"], "Not valid IP-address.");
     }
 }

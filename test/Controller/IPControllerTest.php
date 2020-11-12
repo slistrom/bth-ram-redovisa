@@ -1,6 +1,6 @@
 <?php
 
-namespace Lii\IP;
+namespace Lii\Controller;
 
 use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
@@ -81,6 +81,6 @@ class IPControllerTest extends TestCase
         // Test the controller action
         $res = $controller->catchAll();
         $body = $res->getBody();
-        $this->assertStringContainsString("Lii\IP\IPController::catchAll", $body);
+        $this->assertStringContainsString("Lii\Controller\IPController::catchAll", $body);
     }
 }

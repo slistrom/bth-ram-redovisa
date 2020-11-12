@@ -1,10 +1,10 @@
 <?php
 
-namespace Lii\IP;
+namespace Lii\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Lii\IP\IPValidator;
+use Lii\Model\IPValidator;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -88,9 +88,15 @@ class IPController implements ContainerInjectableInterface
      */
     public function indexAction() : object
     {
-        $page = $this->di->get("page");
+        $request = $this->di->get("request");
+        $userIP = $request->getServer("HTTP_X_FORWARDED_FOR", "x.x.x.x");
 
-        $page->add("Lii/iptest");
+        $page = $this->di->get("page");
+        $data = [
+            "userIP" => $userIP,
+        ];
+
+        $page->add("Lii/iptest", $data);
 
         return $page->render([
             "title" => __METHOD__,
@@ -112,6 +118,7 @@ class IPController implements ContainerInjectableInterface
         $validationResultIPv4 = $validator->validateIPv4($inputIP);
         $validationResultIPv6 = $validator->validateIPv6($inputIP);
         $domain = $validator->checkDomain($inputIP);
+        $location = $validator->locateIP($inputIP);
 
         $page = $this->di->get("page");
         $data = [
@@ -119,6 +126,7 @@ class IPController implements ContainerInjectableInterface
             "resultIPv4" => $validationResultIPv4,
             "resultIPv6" => $validationResultIPv6,
             "domain" => $domain,
+            "location" => $location,
         ];
         $page->add("Lii/ipresult", $data);
 
@@ -126,140 +134,6 @@ class IPController implements ContainerInjectableInterface
             "title" => __METHOD__,
         ]);
     }
-
-
-    /**
-     * This sample method dumps the content of $di.
-     * GET mountpoint/dump-app
-     *
-     * @return string
-     */
-//     public function dumpDiActionGet() : string
-//     {
-//         // Deal with the action and return a response.
-//         $services = implode(", ", $this->di->getServices());
-//         return __METHOD__ . "<p>\$di contains: $services";
-//     }
-
-
-
-    /**
-     * Add the request method to the method name to limit what request methods
-     * the handler supports.
-     * GET mountpoint/info
-     *
-     * @return string
-     */
-//     public function infoActionGet() : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}";
-//     }
-
-
-
-    /**
-     * This sample method action it the handler for route:
-     * GET mountpoint/create
-     *
-     * @return string
-     */
-//     public function createActionGet() : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}";
-//     }
-
-
-
-    /**
-     * This sample method action it the handler for route:
-     * POST mountpoint/create
-     *
-     * @return string
-     */
-//     public function createActionPost() : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}";
-//     }
-
-
-
-    /**
-     * This sample method action takes one argument:
-     * GET mountpoint/argument/<value>
-     *
-     * @param mixed $value
-     *
-     * @return string
-     */
-//     public function argumentActionGet($value) : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-//     }
-
-
-
-    /**
-     * This sample method action takes zero or one argument and you can use - as a separator which will then be removed:
-     * GET mountpoint/defaultargument/
-     * GET mountpoint/defaultargument/<value>
-     * GET mountpoint/default-argument/
-     * GET mountpoint/default-argument/<value>
-     *
-     * @param mixed $value with a default string.
-     *
-     * @return string
-     */
-//     public function defaultArgumentActionGet($value = "default") : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-//     }
-
-
-
-    /**
-     * This sample method action takes two typed arguments:
-     * GET mountpoint/typed-argument/<string>/<int>
-     *
-     * NOTE. Its recommended to not use int as type since it will still
-     * accept numbers such as 2hundred givving a PHP NOTICE. So, its better to
-     * deal with type check within the action method and throuw exceptions
-     * when the expected type is not met.
-     *
-     * @param mixed $value with a default string.
-     *
-     * @return string
-     */
-//     public function typedArgumentActionGet(string $str, int $int) : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}, got string argument '$str' and int argument '$int'.";
-//     }
-
-
-
-    /**
-     * This sample method action takes a variadic list of arguments:
-     * GET mountpoint/variadic/
-     * GET mountpoint/variadic/<value>
-     * GET mountpoint/variadic/<value>/<value>
-     * GET mountpoint/variadic/<value>/<value>/<value>
-     * etc.
-     *
-     * @param array $value as a variadic parameter.
-     *
-     * @return string
-     */
-//     public function variadicActionGet(...$value) : string
-//     {
-//         // Deal with the action and return a response.
-//         return __METHOD__ . ", \$db is {$this->db}, got '" . count($value) . "' arguments: " . implode(", ", $value);
-//     }
-
 
 
     /**

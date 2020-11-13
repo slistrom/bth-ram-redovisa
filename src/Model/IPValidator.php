@@ -19,9 +19,13 @@ class IPValidator
      */
     private function fetchApiKey()
     {
-        $myfile = fopen(ANAX_INSTALL_PATH."/PRIVATE_TOKEN", "r");
-        $this->accessKey = fread($myfile, filesize(ANAX_INSTALL_PATH."/PRIVATE_TOKEN"));
-        fclose($myfile);
+        if (file_exists(ANAX_INSTALL_PATH."/PRIVATE_TOKEN")) {
+            $myfile = fopen(ANAX_INSTALL_PATH."/PRIVATE_TOKEN", "r");
+            $this->accessKey = fread($myfile, filesize(ANAX_INSTALL_PATH."/PRIVATE_TOKEN"));
+            fclose($myfile);
+        } else {
+            $this->accessKey = $_ENV["API_KEY"];
+        }
     }
 
     /**

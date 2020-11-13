@@ -24,7 +24,7 @@ class IPValidator
             $this->accessKey = fread($myfile, filesize(ANAX_INSTALL_PATH."/PRIVATE_TOKEN"));
             fclose($myfile);
         } else {
-            $this->accessKey = $_ENV["API_KEY"];
+            $this->accessKey = getenv('API_KEY');
         }
     }
 

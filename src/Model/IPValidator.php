@@ -2,6 +2,9 @@
 
 namespace Lii\Model;
 
+use Anax\Commons\ContainerInjectableInterface;
+use Anax\Commons\ContainerInjectableTrait;
+
 /**
  * Validate an IP-address in different ways.
  *

@@ -1,6 +1,7 @@
 /.bin
 /build
 /vendor
+/config/api_keys.php
 memory::
 composer.lock
 PRIVATE_TOKEN

@@ -33,4 +33,11 @@ class WeatherReportMock extends WeatherReport
 
         return  $historicWeather;
     }
+
+    public function getJsonWeather($days, $lat, $long)
+    {
+        $jsonWeather = [];
+
+        return  $jsonWeather;
+    }
 }

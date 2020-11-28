@@ -51,7 +51,7 @@ if (isset($class)) {
     <h3>Historic weather</h3>
         <?php foreach ($historicWeather as $pastDay) : ?>
             <p><strong><?= date("Y/m/d", $pastDay["current"]["dt"]) ?> </strong><br>
-            Weather will be <?= $pastDay["current"]["weather"][0]["main"] ?><br>
+            Weather <?= $pastDay["current"]["weather"][0]["main"] ?><br>
             Temperature during day <?= $pastDay["current"]["temp"] ?> degrees Celsius and the wind speed <?= $pastDay["current"]["wind_speed"] ?> m/s.</p>
         <?php endforeach; ?>
 

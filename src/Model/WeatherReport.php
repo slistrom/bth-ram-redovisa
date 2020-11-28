@@ -66,10 +66,6 @@ class WeatherReport
         $result2 = curl_multi_getcontent($ch2);
         $forecastWeather = json_decode($result2, true);
 
-//         var_dump($currentWeather);
-//         var_dump($forecastWeather);
-        var_dump("realtest");
-
         return  [$currentWeather, $forecastWeather];
     }
 
@@ -130,5 +126,100 @@ class WeatherReport
         }
 
         return $response;
+    }
+
+    public function getJsonWeather($days, $lat, $long)
+    {
+        $allWeather = $this->fetchAllWeather($lat, $long);
+        $historicWeather = $this->getHistoricWeather($days, $lat, $long);
+
+//         var_dump($historicWeather);
+
+        $json = [
+            "city" => "{$allWeather[0]['name']}",
+            "current" => [
+                            "weather" => "{$allWeather[0]['weather'][0]['description']}",
+                            "temp" => "{$allWeather[0]['main']['temp']}",
+                            "wind_speed" => "{$allWeather[0]['wind']['speed']}",
+                            ],
+            "forecast" => [
+                            [
+                                "date" => "{$allWeather[1]['daily'][0]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][0]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][0]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][0]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][1]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][1]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][1]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][1]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][2]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][2]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][2]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][2]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][3]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][3]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][3]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][3]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][4]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][4]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][4]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][4]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][5]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][5]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][5]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][5]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][6]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][6]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][6]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][6]['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$allWeather[1]['daily'][7]['dt']}",
+                                "weather" => "{$allWeather[1]['daily'][7]['weather'][0]['main']}",
+                                "temp" => "{$allWeather[1]['daily'][7]['temp']['day']}",
+                                "wind_speed" => "{$allWeather[1]['daily'][7]['wind_speed']}",
+                            ]
+                        ],
+            "historical" => [
+                            [
+                                "date" => "{$historicWeather[0]['current']['dt']}",
+                                "weather" => "{$historicWeather[0]['current']['weather'][0]['main']}",
+                                "temp" => "{$historicWeather[0]['current']['temp']}",
+                                "wind_speed" => "{$historicWeather[0]['current']['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$historicWeather[1]['current']['dt']}",
+                                "weather" => "{$historicWeather[1]['current']['weather'][0]['main']}",
+                                "temp" => "{$historicWeather[1]['current']['temp']}",
+                                "wind_speed" => "{$historicWeather[1]['current']['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$historicWeather[2]['current']['dt']}",
+                                "weather" => "{$historicWeather[2]['current']['weather'][0]['main']}",
+                                "temp" => "{$historicWeather[2]['current']['temp']}",
+                                "wind_speed" => "{$historicWeather[2]['current']['wind_speed']}",
+                            ],
+                            [
+                                "date" => "{$historicWeather[3]['current']['dt']}",
+                                "weather" => "{$historicWeather[3]['current']['weather'][0]['main']}",
+                                "temp" => "{$historicWeather[3]['current']['temp']}",
+                                "wind_speed" => "{$historicWeather[3]['current']['wind_speed']}",
+                            ],
+                        ]
+        ];
+
+        return [$json];
     }
 }

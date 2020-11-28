@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the SampleJsonController.
  */
-class JsonIpControllerTest extends TestCase
+class JsonControllerTest extends TestCase
 {
     
     // Create the di container.
@@ -35,7 +35,7 @@ class JsonIpControllerTest extends TestCase
         $di = $this->di;
 
         // Setup the controller
-        $this->controller = new JsonIPController();
+        $this->controller = new JsonControllerMock();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
     }
@@ -155,5 +155,23 @@ class JsonIpControllerTest extends TestCase
         $json = $res[0];
         $exp = "Not valid IP-address.";
         $this->assertContains($exp, $json["error"]);
+    }
+
+    /**
+     * Test the route "weather" for POST.
+     */
+    public function testWeatherActionPost()
+    {
+        // Setup request
+        $request = $this->di->get("request");
+        $request->setPost("ip", "12.12.12.12");
+
+        // Test the controller action
+        $res = $this->controller->weatherActionPost();
+        $this->assertInternalType("array", $res);
+
+//         $json = $res[0];
+//         $exp = "12.12.12.12";
+//         $this->assertContains($exp, $json["city"]);
     }
 }

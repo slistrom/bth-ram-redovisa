@@ -7,7 +7,7 @@ return [
         [
             "info" => "JSON API.",
             "mount" => "api",
-            "handler" => "\Lii\Controller\JsonIPController",
+            "handler" => "\Lii\Controller\JsonController",
         ],
     ]
 ];

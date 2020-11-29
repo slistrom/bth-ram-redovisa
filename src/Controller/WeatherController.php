@@ -31,6 +31,7 @@ class WeatherController implements ContainerInjectableInterface
      */
     private $db = "not active";
     public $report = null;
+    public $validator = null;
 
 
 
@@ -47,6 +48,7 @@ class WeatherController implements ContainerInjectableInterface
 //         $this->db = "active";
         $service = $this->di->get("apikeys");
         $this->report = new WeatherReport($service->getWeatherKey());
+        $this->validator = new IPValidator($service->getIpKey());
     }
 
 
@@ -126,8 +128,8 @@ class WeatherController implements ContainerInjectableInterface
 
 //         var_dump($inputIP);
 
-        $validator = new IPValidator();
-        $location = $validator->locateIP($inputIP);
+//         $validator = new IPValidator();
+        $location = $this->validator->locateIP($inputIP);
 
 //         var_dump($location);
 

@@ -18,7 +18,7 @@ class IPValidatorTest extends TestCase
      */
     protected function setUp()
     {
-        $this->validator = new IPValidator();
+        $this->validator = new IPValidatorMock("");
     }
 
     /**

@@ -42,8 +42,7 @@ class JsonController implements ContainerInjectableInterface
         $this->db = "active";
         $service = $this->di->get("apikeys");
 
-        $this->validator = new IPValidator();
-//         $this->validator = new IPValidator($service->getIpKey());
+        $this->validator = new IPValidator($service->getIpKey());
         $this->report = new WeatherReport($service->getWeatherKey());
     }
 

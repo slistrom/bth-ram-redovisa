@@ -15,21 +15,27 @@ use Anax\Commons\ContainerInjectableTrait;
 class IPValidator
 {
     // Global variables
-    private $accessKey = '';
+    public $accessKey = '';
 
-    /**
-     * Load API access key from private file.
-     */
-    private function fetchApiKey()
+    public function __construct($apiKey)
     {
-        if (file_exists(ANAX_INSTALL_PATH."/PRIVATE_TOKEN")) {
-            $myfile = fopen(ANAX_INSTALL_PATH."/PRIVATE_TOKEN", "r");
-            $this->accessKey = fread($myfile, filesize(ANAX_INSTALL_PATH."/PRIVATE_TOKEN"));
-            fclose($myfile);
-        } else {
-            $this->accessKey = getenv('API_KEY');
-        }
+        $this->accessKey = $apiKey;
     }
+
+//     /**
+//      * Load API access key from private file.
+//      */
+//     private function fetchApiKey()
+//     {
+//         if (file_exists(ANAX_INSTALL_PATH."/PRIVATE_TOKEN")) {
+//             $myfile = fopen(ANAX_INSTALL_PATH."/PRIVATE_TOKEN", "r");
+//             $this->accessKey = fread($myfile, filesize(ANAX_INSTALL_PATH."/PRIVATE_TOKEN"));
+//             fclose($myfile);
+//         } else {
+//             $this->accessKey = getenv('API_KEY');
+//         }
+//     }
+
 
     /**
      * Validate an IPv4 IP-address.
@@ -81,7 +87,7 @@ class IPValidator
         $result = "Not valid IP-address.";
 
         if ($this->validateIPv4($inputIP) || $this->validateIPv6($inputIP)) {
-            $this->fetchApiKey();
+//             $this->fetchApiKey();
 
             // Initialize CURL:
             $cRes = curl_init('http://api.ipstack.com/'.$inputIP.'?access_key='.$this->accessKey.'');
@@ -169,9 +175,10 @@ class IPValidator
         ];
 
         if ($this->validateIPv4($inputIP) || $this->validateIPv6($inputIP)) {
-            $this->fetchApiKey();
+//             $this->fetchApiKey();
             $domain = $this->checkDomain($inputIP);
             $location = $this->locateIP($inputIP);
+//             var_dump($location);
             $maplink = "https://www.google.com/maps/search/?api=1&query=".$location['latitude'].",".$location['longitude'];
 
             if ($this->validateIPv4($inputIP)) {

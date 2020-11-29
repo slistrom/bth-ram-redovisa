@@ -23,14 +23,11 @@ class IPController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-
-
     /**
      * @var string $db a sample member variable that gets initialised
      */
     private $db = "not active";
-
-
+    public $validator = null;
 
     /**
      * The initialize method is optional and will always be called before the
@@ -39,11 +36,13 @@ class IPController implements ContainerInjectableInterface
      *
      * @return void
      */
-//     public function initialize() : void
-//     {
-//         // Use to initialise member variables.
-//         $this->db = "active";
-//     }
+    public function initialize() : void
+    {
+        // Use to initialise member variables.
+        $this->db = "active";
+        $service = $this->di->get("apikeys");
+        $this->validator = new IPValidator($service->getIpKey());
+    }
 
 
     /**
@@ -114,11 +113,11 @@ class IPController implements ContainerInjectableInterface
         $request = $this->di->get("request");
         $inputIP = $request->getPost("ip");
 
-        $validator = new IPValidator();
-        $validationResultIPv4 = $validator->validateIPv4($inputIP);
-        $validationResultIPv6 = $validator->validateIPv6($inputIP);
-        $domain = $validator->checkDomain($inputIP);
-        $location = $validator->locateIP($inputIP);
+//         $validator = new IPValidator();
+        $validationResultIPv4 = $this->validator->validateIPv4($inputIP);
+        $validationResultIPv6 = $this->validator->validateIPv6($inputIP);
+        $domain = $this->validator->checkDomain($inputIP);
+        $location = $this->validator->locateIP($inputIP);
 
         $page = $this->di->get("page");
         $data = [

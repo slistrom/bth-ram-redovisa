@@ -10,7 +10,11 @@ Scrutinizer badges
 
 This is a repository for the content produced in the course ramverk1 at Blekinge Tekniska Högskola.
 
-## Locating IP
+## API keys
 
-For the locating IP API to work there needs to be a file called PRIVATE_TOKEN in the root folder with an api key to the [ipstack](https://ipstack.com/) service. 
-Alternatively you can use an environment variable called API_KEY to store the api key.
+The ip validation and location service and the weather service both require API keys.
+This repo does not include API keys, to use your own keys with this repo update the api_keys_sample file located under /config
+
+[ipstack](https://ipstack.com/)
+
+[openweather](https://openweathermap.org/)

@@ -12,6 +12,7 @@ class IPControllerTest extends TestCase
 {
     // Create the di container.
     protected $di;
+    public $controller = null;
 
     /**
      * Prepare before each test.
@@ -26,8 +27,12 @@ class IPControllerTest extends TestCase
 
         // Use a different cache dir for unit test
         $di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
-
         $this->di = $di;
+
+        // Setup the controller
+        $this->controller = new IPControllerMock();
+        $this->controller->setDI($this->di);
+        $this->controller->initialize();
     }
 
     /**
@@ -36,11 +41,11 @@ class IPControllerTest extends TestCase
     public function testIndexAction()
     {
         // Setup the controller
-        $controller = new IPController();
-        $controller->setDI($this->di);
+//         $controller = new IPController();
+//         $controller->setDI($this->di);
 
         // Test the controller action
-        $res = $controller->indexAction();
+        $res = $this->controller->indexAction();
         $body = $res->getBody();
         $this->assertStringContainsString("Validera en IP-adress", $body);
     }
@@ -51,15 +56,15 @@ class IPControllerTest extends TestCase
     public function testValidateActionPost()
     {
         // Setup the controller
-        $controller = new IPController();
-        $controller->setDI($this->di);
+//         $controller = new IPController();
+//         $controller->setDI($this->di);
 
         // Setup request
         $request = $this->di->get("request");
         $request->setPost("ip", "12.12.12.12");
 
         // Test the controller action
-        $res = $controller->validateActionPost();
+        $res = $this->controller->validateActionPost();
         $body = $res->getBody();
         $this->assertStringContainsString("Validerings resultat", $body);
         $this->assertStringContainsString("12.12.12.12", $body);
@@ -71,15 +76,15 @@ class IPControllerTest extends TestCase
     public function testCatchAll()
     {
         // Setup the controller
-        $controller = new IPController();
-        $controller->setDI($this->di);
+//         $controller = new IPController();
+//         $controller->setDI($this->di);
 
         // Setup route
         $router = $this->di->get("router");
         $router->handle("ip/hej");
 
         // Test the controller action
-        $res = $controller->catchAll();
+        $res = $this->controller->catchAll();
         $body = $res->getBody();
         $this->assertStringContainsString("Lii\Controller\IPController::catchAll", $body);
     }

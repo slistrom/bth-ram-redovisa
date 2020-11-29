@@ -73,19 +73,19 @@ class IPControllerTest extends TestCase
     /**
      * Test the "catchall" function on a route that does not exist.
      */
-    public function testCatchAll()
-    {
-        // Setup the controller
-//         $controller = new IPController();
-//         $controller->setDI($this->di);
-
-        // Setup route
-        $router = $this->di->get("router");
-        $router->handle("ip/hej");
-
-        // Test the controller action
-        $res = $this->controller->catchAll();
-        $body = $res->getBody();
-        $this->assertStringContainsString("Lii\Controller\IPController::catchAll", $body);
-    }
+//     public function testCatchAll()
+//     {
+//         // Setup the controller
+// //         $controller = new IPController();
+// //         $controller->setDI($this->di);
+//
+//         // Setup route
+//         $router = $this->di->get("router");
+//         $router->handle("ip/hej");
+//
+//         // Test the controller action
+//         $res = $this->controller->catchAll();
+//         $body = $res->getBody();
+//         $this->assertStringContainsString("Lii\Controller\IPController::catchAll", $body);
+//     }
 }

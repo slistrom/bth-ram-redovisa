@@ -2,6 +2,9 @@ Travis badge
 
 [![Build Status](https://travis-ci.org/slistrom/bth-ram-redovisa.svg?branch=main)](https://travis-ci.org/slistrom/bth-ram-redovisa)
 
+Circle CI
+[![CircleCI](https://circleci.com/gh/slistrom/bth-ram-redovisa.svg?style=svg)](https://circleci.com/gh/slistrom/bth-ram-redovisa)
+
 Scrutinizer badges
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/slistrom/bth-ram-redovisa/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/slistrom/bth-ram-redovisa/?branch=main)

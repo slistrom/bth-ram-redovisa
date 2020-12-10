@@ -33,7 +33,7 @@ $urlToDelete = url("book/delete");
 endif;
 ?>
 
-<table>
+<table class="booktable">
     <tr>
         <th>Id</th>
         <th>Title</th>
@@ -49,7 +49,7 @@ endif;
         <td><?= $item->title ?></td>
         <td><?= $item->description ?></td>
         <td><?= $item->author ?></td>
-        <td><?= $item->image ?></td>
+        <td><img src="img/<?= $item->image ?>" alt="book cover" width="150" height="150"/></td>
     </tr>
     <?php endforeach; ?>
 </table>

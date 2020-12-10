@@ -59,11 +59,6 @@ return [
             ],
         ],
         [
-            "text" => "Om",
-            "url" => "om",
-            "title" => "Om denna webbplats.",
-        ],
-        [
             "text" => "IP",
             "url" => "ip",
             "title" => "Validate an IP-address.",
@@ -79,14 +74,14 @@ return [
             "title" => "Weather report.",
         ],
         [
-            "text" => "Styleväljare",
-            "url" => "style",
-            "title" => "Välj stylesheet.",
+            "text" => "Books",
+            "url" => "book",
+            "title" => "Book database.",
         ],
         [
-            "text" => "Verktyg",
-            "url" => "verktyg",
-            "title" => "Verktyg och möjligheter för utveckling.",
+            "text" => "Om",
+            "url" => "om",
+            "title" => "Om denna webbplats.",
         ],
     ],
 ];

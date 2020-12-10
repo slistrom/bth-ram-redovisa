@@ -13,7 +13,9 @@
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
         "anax/remserver": "^2.1",
-        "lii/weather": "^1.2"
+        "lii/weather": "^1.2",
+        "anax/database-active-record": "^2.0",
+        "anax/htmlform": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
